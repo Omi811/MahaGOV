@@ -1,0 +1,70 @@
+import { useState } from "react";
+import { Button, Input, Label, Select, Card, CardContent } from "@/components/ui";
+
+export default function Index2Downloader() {
+  const [formData, setFormData] = useState({
+    district: "",
+    taluka: "",
+    village: "",
+    docNumber: "",
+    year: "",
+    email: "",
+    schedule: "none",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Submitting: ", formData);
+    // Make API request to backend for document download
+  };
+
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <Card className="w-full max-w-md p-6 bg-white shadow-lg rounded-2xl">
+        <h2 className="text-xl font-bold mb-4">Index2 Document Downloader</h2>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Label>District</Label>
+              <Input type="text" name="district" value={formData.district} onChange={handleChange} required />
+            </div>
+            <div>
+              <Label>Taluka</Label>
+              <Input type="text" name="taluka" value={formData.taluka} onChange={handleChange} required />
+            </div>
+            <div>
+              <Label>Village</Label>
+              <Input type="text" name="village" value={formData.village} onChange={handleChange} required />
+            </div>
+            <div>
+              <Label>Document Number</Label>
+              <Input type="text" name="docNumber" value={formData.docNumber} onChange={handleChange} required />
+            </div>
+            <div>
+              <Label>Year</Label>
+              <Input type="number" name="year" value={formData.year} onChange={handleChange} required />
+            </div>
+            <div>
+              <Label>Email (for notifications)</Label>
+              <Input type="email" name="email" value={formData.email} onChange={handleChange} />
+            </div>
+            <div>
+              <Label>Schedule Download</Label>
+              <Select name="schedule" value={formData.schedule} onChange={handleChange}>
+                <option value="none">None</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </Select>
+            </div>
+            <Button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-xl">Download</Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
